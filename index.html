@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#151720">
+  <title>Sunset Run — Arcade racer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game">
+    <div id="scene" aria-label="Three dimensional highway racing game"></div>
+    <header><a class="brand" href="./"><span class="brand-icon">S/R</span> SUNSET RUN</a><div class="edition">ENDLESS HIGHWAY <span>01 / DESERT</span></div><button id="pause" class="icon-button" aria-label="Pause game" disabled>Ⅱ</button></header>
+    <div class="top-hud"><div><span class="label">DISTANCE</span><strong><span id="distance">0.00</span><small> KM</small></strong></div><div class="best"><span class="label">PERSONAL BEST</span><strong><span id="best">0.00</span><small> KM</small></strong></div></div>
+    <div id="combat" class="combat">LEFT CLICK: MEGA LASER / RAM EVERYTHING</div>
+    <button class="touch-laser" data-key="KeyF" aria-label="Fire lasers">FIRE LASERS</button>
+    <section id="overlay" class="overlay" aria-labelledby="title">
+      <div class="intro"><div class="eyebrow"><span></span> THE ROAD IS YOURS</div><h1 id="title">CHASE THE<br><em>SUNSET.</em></h1><p id="message">An open highway. A little adrenaline.<br>See how far you can go.</p><button id="start" class="start" disabled>LOADING ENGINE… <span>↗</span></button><div class="intro-hint">DODGE TRAFFIC <i> / </i> BEAT YOUR BEST</div></div>
+    </section>
+    <footer><div class="controls"><span><kbd>W</kbd><kbd>↑</kbd> ACCELERATE</span><span><kbd>A</kbd><kbd>D</kbd> STEER</span><span><kbd>S</kbd> BRAKE</span><span><kbd>SPACE</kbd> NITRO</span></div><div class="speed"><strong id="speed">0</strong><span>KM/H</span><div class="nitro-track"><div id="nitro"></div></div><small>NITRO</small></div></footer>
+    <div class="touch-controls"><button data-key="ArrowLeft" aria-label="Steer left">←</button><button data-key="ArrowRight" aria-label="Steer right">→</button><button data-key="ArrowDown" aria-label="Brake">BRAKE</button><button data-key="Space" aria-label="Nitro">NITRO</button><button data-key="ArrowUp" aria-label="Accelerate">GO</button></div>
+    <div class="corner-note">GOLDEN HOUR. FULL THROTTLE.</div>
+  </main>
+  <script src="three.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
