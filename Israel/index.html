@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#151720">
-  <title>Sunset Run — Arcade racer</title>
+  <meta name="theme-color" content="#14272d">
+  <title>Atlanta Run | Laser Uprising</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main id="game">
-    <div id="scene" aria-label="Three dimensional highway racing game"></div>
-    <header><a class="brand" href="./"><span class="brand-icon">S/R</span> SUNSET RUN</a><div class="edition">ENDLESS HIGHWAY <span>01 / DESERT</span></div><button id="pause" class="icon-button" aria-label="Pause game" disabled>Ⅱ</button></header>
-    <div class="top-hud"><div><span class="label">DISTANCE</span><strong><span id="distance">0.00</span><small> KM</small></strong></div><div class="best"><span class="label">PERSONAL BEST</span><strong><span id="best">0.00</span><small> KM</small></strong></div></div>
-    <div id="combat" class="combat">LEFT CLICK: MEGA LASER / RAM EVERYTHING</div>
-    <button class="touch-laser" data-key="KeyF" aria-label="Fire lasers">FIRE LASERS</button>
-    <section id="overlay" class="overlay" aria-labelledby="title">
-      <div class="intro"><div class="eyebrow"><span></span> THE ROAD IS YOURS</div><h1 id="title">CHASE THE<br><em>SUNSET.</em></h1><p id="message">An open highway. A little adrenaline.<br>See how far you can go.</p><button id="start" class="start" disabled>LOADING ENGINE… <span>↗</span></button><div class="intro-hint">DODGE TRAFFIC <i> / </i> BEAT YOUR BEST</div></div>
-    </section>
-    <footer><div class="controls"><span><kbd>W</kbd><kbd>↑</kbd> ACCELERATE</span><span><kbd>A</kbd><kbd>D</kbd> STEER</span><span><kbd>S</kbd> BRAKE</span><span><kbd>SPACE</kbd> NITRO</span></div><div class="speed"><strong id="speed">0</strong><span>KM/H</span><div class="nitro-track"><div id="nitro"></div></div><small>NITRO</small></div></footer>
-    <div class="touch-controls"><button data-key="ArrowLeft" aria-label="Steer left">←</button><button data-key="ArrowRight" aria-label="Steer right">→</button><button data-key="ArrowDown" aria-label="Brake">BRAKE</button><button data-key="Space" aria-label="Nitro">NITRO</button><button data-key="ArrowUp" aria-label="Accelerate">GO</button></div>
-    <div class="corner-note">GOLDEN HOUR. FULL THROTTLE.</div>
+    <div id="scene" aria-label="Open-world downtown Atlanta laser survival game"></div>
+    <header><a class="brand" href="./"><span>ATL</span><div>ATLANTA RUN<small id="district">DOWNTOWN / LASER UPRISING</small></div></a><button id="pause" aria-label="Pause game" disabled>Ⅱ</button></header>
+    <section class="power-panel" aria-label="Laser progression"><div><strong id="power-level">LASER 1</strong><span id="streak">EASY / AIM ASSIST ON</span></div><div class="meter"><div id="power-fill"></div></div><small id="power-detail">ELIMINATE BOTS. COLLECT POWER. UPGRADE.</small></section>
+    <aside class="radar-panel" aria-label="City radar"><div class="panel-title"><span id="bot-count">HOSTILE BOTS</span><span>N ↑</span></div><canvas id="minimap" width="240" height="240" aria-label="City radar. Red dots are enemies, blue dots are power, green dots restore health. Tap to mark a destination."></canvas><div class="radar-key"><span>● BOTS</span><span>◆ POWER</span><span>+ HP</span></div></aside>
+    <div id="toast" role="status" hidden></div>
+    <div id="crosshair" aria-hidden="true"><i></i><b></b></div>
+    <div id="damage-flash" aria-hidden="true"></div>
+    <section id="health" class="health-panel" aria-label="Player health"><div class="health-title"><strong>+ HP</strong><span id="hp-value">100 / 100</span></div><div class="meter"><div id="hp-fill"></div></div><div class="score"><div><strong id="kills">0</strong><small>ELIMINATED</small></div><div><strong id="best">0</strong><small>BEST RUN</small></div><span>HP REGENERATES<br>AFTER 5s WITHOUT A HIT</span></div></section>
+    <nav class="action-bar" aria-label="Game controls"><button id="vehicle" disabled>E / EXIT CAR</button><button id="view">V / CHASE</button><button class="fire-button" data-key="KeyF">HOLD TO FIRE</button></nav>
+    <div class="driving-hud"><strong id="speed">0</strong><small>KM/H</small><div class="meter"><div id="nitro"></div></div><span>BOOST</span></div>
+    <div class="controls-hint">WASD move <i>·</i> SPACE boost / run <i>·</i> F fire <i>·</i> RIGHT-DRAG look <i>·</i> Q / C orbit <i>·</i> SCROLL zoom</div>
+    <div class="touch-controls"><button data-key="ArrowLeft" aria-label="Turn or move left">←</button><button data-key="ArrowRight" aria-label="Turn or move right">→</button><button data-key="ArrowDown" aria-label="Reverse or move backward">BACK</button><button data-key="Space" aria-label="Boost or sprint">BOOST</button><button data-key="ArrowUp" aria-label="Drive or walk forward">GO</button></div>
+    <section id="overlay" class="overlay" aria-labelledby="title"><div class="intro"><div class="eyebrow">DOWNTOWN ATLANTA / FREE ROAM</div><h1 id="title">LIGHT UP<br><em>THE CITY.</em></h1><p id="message">Bots are hunting you. Make your laser unstoppable.<br>Eliminate enemies, collect power cores, and keep exploring.</p><div class="intro-features"><span>REGENERATING HP</span><span>AIM ASSIST</span><span>SAVED UPGRADES</span></div><button id="start" disabled>LOADING CITY</button><p class="intro-controls">WASD move · E exit car · F fire · V change view<br>Right-drag or Q / C to look around. Drag the world on touch screens.</p></div></section>
   </main>
   <script src="three.min.js"></script>
+  <script src="downtown-world.js"></script>
+  <script src="downtown-survival.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
