@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Shooting effects visual check</title>
+<style>body{margin:24px;background:#101113;color:#ddd;font:14px monospace}main{display:flex;gap:20px;flex-wrap:wrap}figure{margin:0}figure canvas{width:480px;height:270px;image-rendering:pixelated;border:1px solid #383838}figcaption{padding:12px 0;color:#c1b18c}</style>
+<h1>Shooting effects</h1><main id="previews"></main><canvas id="game" width="480" height="270" hidden></canvas>
+<script>
+// Deterministic visual fixture: render actual game code at chosen animation times.
+window.requestAnimationFrame=()=>0;
+for(const id of ['health-value','health-fill','weapon-name','weapon-sub','ammo-current','ammo-reserve','weapon-slot','slot-one','slot-two','toast','crosshair','stance-value','overlay','play-button','lock-error','flashlight-value']){const node=document.createElement('div');node.id=id;node.hidden=true;document.body.append(node);}
+</script>
+<script src="../dungeon.js"></script><script src="../weapon-models.js"></script><script src="../combat-effects.js"></script><script src="../main.js"></script>
+<script>
+function snapshot(label,time){drawWorld(H/(2*Math.tan((aiming?53:73)*Math.PI/360)));drawGun(.016,time);const figure=document.createElement('figure'),copy=document.createElement('canvas'),caption=document.createElement('figcaption');copy.width=W;copy.height=H;copy.getContext('2d').drawImage(canvas,0,0);caption.textContent=label;figure.append(copy,caption);document.getElementById('previews').append(figure);}
+playing=true;player.z=Dungeon.cell*4.2;
+drawGun(.016,0);tryShoot(1);combat.update(.017);snapshot('AK-47: muzzle flash and traveling tracer',1.017);
+combat.update(.075);snapshot('Concrete hit: sparks, chips, dust and bullet hole',1.092);
+combat.update(1);selected=1;flashlight=false;drawGun(1,2);tryShoot(3);combat.update(.016);snapshot('Pistol: brief muzzle illumination with flashlight off',3.016);
+</script></html>

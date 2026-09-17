@@ -1,0 +1,42 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const load=(file,name)=>new Function(fs.readFileSync(path.join(__dirname,'..',file),'utf8')+`;return ${name};`)();
+const dungeon=load('dungeon.js','Dungeon'),CombatEffects=load('combat-effects.js','CombatEffects');
+const camera={...dungeon.spawn,y:0,eye:1.65,pitch:0,roll:0};
+const origin={x:camera.x+.05,y:camera.eye-.03,z:camera.z+.2};
+const hit=dungeon.trace(camera.x,camera.eye,camera.z,0,0,1,40);
+let impacts=[];const originalImpact=dungeon.impact;
+dungeon.impact=h=>{impacts.push({...h});originalImpact(h);};
+const effects=CombatEffects.create(dungeon,()=>.6);
+let draws=0;
+const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})}, {
+  get(object,key){return object[key]??((...args)=>{for(const value of args)if(typeof value==='number')assert(Number.isFinite(value),`${key} must receive finite coordinates`);if(key==='fillRect'||key==='fill')draws++;});}
+});
+effects.fire(origin,hit,0);
+assert.equal(impacts.length,0,'Impacts should wait for the bullet to arrive');
+assert.equal(effects.counts.bullets,1);
+assert.equal(effects.flashStrength,1);
+effects.update(.02);
+effects.draw(ctx,camera,480,270,182,true);
+assert(draws>0,'A flying bullet must be visible before impact');
+effects.drawMuzzle(ctx,{x:.1,y:-.2,z:2},480,270,210,0);
+effects.update(.07);
+assert.equal(impacts.length,1);
+assert(Math.abs(impacts[0].z-hit.z)<.003,'Bullet must stop on the first wall');
+assert(effects.counts.particles>0,'Concrete hit should spawn particles');
+draws=0;
+effects.draw(ctx,{...camera,z:7.5*dungeon.cell,yaw:Math.PI},480,270,182,true);
+assert.equal(draws,0,'Impacts must not show through the wall from the next corridor');
+effects.update(2);
+assert.equal(effects.counts.bullets,0);assert.equal(effects.counts.particles,0);assert.equal(effects.flashStrength,0);
+for(let i=0;i<40;i++){effects.fire(origin,hit,i%2);effects.update(.09);}
+assert(effects.counts.particles<=180,'Long bursts should keep the particle budget bounded');
+assert(effects.counts.bullets<=12);
+let frame;
+const raster={createImageData:(w,h)=>({width:w,height:h,data:new Uint8ClampedArray(w*h*4)}),putImageData:image=>{frame=image;}};
+dungeon.render(raster,160,90,camera,61,false,1);
+assert(frame.data.some((v,i)=>i%4!==3&&v>20),'Muzzle flash should briefly illuminate the dungeon');
+dungeon.render(raster,160,90,camera,61,false,0);
+assert(frame.data.every((v,i)=>v===(i%4===3?255:0)),'The dungeon should go dark after the flash');
+console.log('PASS: projectile travel, first-wall impacts, particles, occlusion, effect expiry, bounded bursts, and temporary muzzle lighting.');

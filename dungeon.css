@@ -1,0 +1,12 @@
+body .game-shell { background: #000; }
+.game-shell .top-bar { background: linear-gradient(#000b, transparent); opacity: .7; }
+.game-shell .vignette { background: radial-gradient(ellipse at center, transparent 38%, #0008 100%); }
+.game-shell .weapon-panel { background: #090b0cbd; border-color: #8a918543; box-shadow: none; }
+.game-shell .left-rail { opacity: .8; }
+.game-shell .health-track div { background: #bbc1a1; box-shadow: none; }
+.game-shell .overlay { background: #06090bc9; backdrop-filter: blur(2px); }
+.game-shell .overlay-card { background: #111719f2; border-color: #808b804f; }
+.game-shell .control-grid div { background: #1a2223; }
+.game-shell .bottom-center { opacity: .55; }
+.flashlight-status { margin-top: 12px; font: 9px 'Space Mono', monospace; letter-spacing: .08em; color: #c5bea6; }
+.flashlight-status kbd { padding: 2px 5px; margin-right: 5px; border: 1px solid #797969; font: inherit; }

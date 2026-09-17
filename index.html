@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#171c23" />
+    <title>BLOCK//DEPTH</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dungeon.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <canvas id="game" width="480" height="270" aria-label="Dark concrete dungeon lit by your flashlight"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="top-bar">
+        <div class="brand"><span class="brand-mark">▣</span> BLOCK<span class="brand-slash">//</span>DEPTH</div>
+        <div class="session">CONCRETE LABYRINTH <span class="session-id">/ SUBLEVEL 01</span></div>
+      </header>
+
+      <div id="crosshair" class="crosshair" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
+
+      <div class="left-rail">
+        <div class="rail-title">STATUS</div>
+        <div class="health-label"><span>HEALTH</span><strong id="health-value">100</strong></div>
+        <div class="health-track"><div id="health-fill"></div></div>
+        <div class="stance"><span class="stance-icon">◈</span> <span id="stance-value">STANDING</span></div>
+        <div class="flashlight-status"><kbd>F</kbd> <span id="flashlight-value">FLASHLIGHT ON</span></div>
+      </div>
+
+      <div class="bottom-center">Q / E LEAN <span>·</span> F FLASHLIGHT <span>·</span> CTRL CROUCH <span>·</span> I INSPECT</div>
+
+      <div class="weapon-panel">
+        <div class="weapon-top"><span>LOADOUT</span><span id="weapon-slot">01 / 02</span></div>
+        <div class="weapon-name" id="weapon-name">AK-47</div>
+        <div class="weapon-sub" id="weapon-sub">ASSAULT RIFLE</div>
+        <div class="ammo"><strong id="ammo-current">30</strong><span>/</span><span id="ammo-reserve">90</span></div>
+        <div class="ammo-caption" id="ammo-caption">AMMO <span>·</span> R TO RELOAD</div>
+        <div class="weapon-switch"><span id="slot-one" class="selected">1&nbsp; AK-47</span><span id="slot-two">2&nbsp; PISTOL</span></div>
+      </div>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <div id="overlay" class="overlay">
+        <div class="overlay-card">
+          <div class="eyebrow">SUBLEVEL 01 <span class="build">NO DAYLIGHT</span></div>
+          <h1>BLOCK<span>//</span>DEPTH</h1>
+          <p class="intro">Concrete walls. Blind corners. Tight rooms.<br>Your flashlight is the only light down here.</p>
+          <div class="control-grid">
+            <div><kbd>W A S D</kbd><span>Move</span></div>
+            <div><kbd>SPACE</kbd><span>Jump</span></div>
+            <div><kbd>SHIFT</kbd><span>Sprint</span></div>
+            <div><kbd>CTRL</kbd><span>Crouch</span></div>
+            <div><kbd>LEFT CLICK</kbd><span>Fire</span></div>
+            <div><kbd>RIGHT CLICK</kbd><span>Aim</span></div>
+            <div><kbd>1 / 2</kbd><span>Switch weapon</span></div>
+            <div><kbd>R</kbd><span>Reload</span></div>
+            <div><kbd>F</kbd><span>Flashlight</span></div>
+            <div><kbd>I</kbd><span>Inspect weapon</span></div>
+            <div><kbd>Q</kbd><span>Lean left (hold)</span></div>
+            <div><kbd>E</kbd><span>Lean right (hold)</span></div>
+          </div>
+          <button id="play-button" type="button">ENTER DUNGEON <span>→</span></button>
+          <p id="lock-error" role="alert" hidden></p>
+          <div class="overlay-foot">CLICK TO LOCK MOUSE <span>·</span> ESC TO PAUSE</div>
+        </div>
+      </div>
+    </main>
+    <script src="dungeon.js"></script>
+    <script src="weapon-models.js"></script>
+    <script src="combat-effects.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
